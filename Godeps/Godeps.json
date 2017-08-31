@@ -1,0 +1,9 @@
+{
+	"ImportPath": "github.com/molson194/Food",
+	"GoVersion": "go1.7",
+	"GodepVersion": "v79",
+	"Packages": [
+		"./..."
+	],
+	"Deps": []
+}
