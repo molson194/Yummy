@@ -44,11 +44,11 @@
   </nav>
 
   <div class="container">
-    <h1 class="my-4">Chicken with Potatoes and Greens</h1>
+    <h1 id="title" class="my-4"></h1>
     <img src="https://images.unsplash.com/photo-1432139555190-58524dae6a55?dpr=1&auto=format&fit=crop&w=1500&h=994&q=80&cs=tinysrgb&crop=" class="img-fluid " alt="Responsive image">
     <div class="row justify-content-lg-center mt-3">
       <div class="col-lg-10 col-md-12">
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</p>
+        <p id="description"></p>
       </div>
     </div>
     <div class="container">
@@ -56,36 +56,20 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card mb-4">
             <div class="card-body">
-              <p><strong>Time:</strong> Time</p>
-              <p><strong>Price:</strong> Price</p>
-              <p><strong>Region:</strong> Region</p>
-              <p><strong>Meat:</strong> Meat</p>
-              <p><strong>Serves:</strong> Serves</p>
-              <p><strong>Equipment:</strong> Equipment</p>
+              <p id="time"><strong>Time:</strong> </p>
+              <p id="price"><strong>Price:</strong> </p>
+              <p id="region"><strong>Region:</strong> </p>
+              <p id="meat"><strong>Meat:</strong> </p>
+              <p id="serves"><strong>Serves:</strong> </p>
+              <p id="equipment"><strong>Equipment:</strong> TODO: Equipment</p>
             </div>
           </div>
           <div class="card mb-4">
             <div class="card-body">
               <h5 class="mb-3">Ingredients</h5>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">&nbsp;&nbsp;Ingredient 1</label>
+              <div id="ingredients" class="container-fluid">
               </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">&nbsp;&nbsp;Ingredient 2</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">&nbsp;&nbsp;Ingredient 3</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">&nbsp;&nbsp;Ingredient 4</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">&nbsp;&nbsp;Ingredient 5</label>
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox" value="">&nbsp;&nbsp;Ingredient 6</label>
-              </div>
-              <a href="#" class="btn btn-warning mt-3">Buy on Amazon</a>
+              <a href="#" class="btn btn-block btn-warning mt-3">Buy on Amazon</a>
             </div>
           </div>
         </div>
@@ -93,12 +77,7 @@
           <div class="card mb-4">
             <div class="card-body">
               <h3 class="mb-3">Directions</h3>
-              <ol>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</li>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</li>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</li>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</li>
-                <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur eum quasi sapiente nesciunt? Voluptatibus sit, repellat sequi itaque deserunt, dolores in, nesciunt, illum tempora ex quae? Nihil, dolorem!</li>
+              <ol id="directions">
               </ol>
             </div>
           </div>
@@ -108,14 +87,14 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-6 col-md-12">
-                    <p><strong>Calories:</strong> 100 Cal</p>
-                    <p><strong>Carbs:</strong> 10 g</p>
+                    <p id="calories"><strong>Calories:</strong> </p>
+                    <p id="carbs"><strong>Carbs:</strong> </p>
                   </div>
                   <div class="col-lg-6 col-md-12">
-                    <p><strong>Protein:</strong> 10 g</p>
-                    <p><strong>Fat:</strong> 10 g</p>
+                    <p id="protein"><strong>Protein:</strong> </p>
+                    <p id="fat"><strong>Fat:</strong> </p>
                   </div>
-                  <p>Other nutrition info...</p>
+                  <p id="nutrition"></p>
                 </div>
               </div>
             </div>
@@ -135,6 +114,7 @@
   <script src="/static/js/jquery.min.js"></script>
   <script src="/static/js/popper.min.js"></script>
   <script src="/static/js/bootstrap.min.js"></script>
+  <script src="/static/js/recipeparse.js"></script>
 
 </body>
 
