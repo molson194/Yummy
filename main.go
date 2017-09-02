@@ -37,6 +37,8 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: Email subscription
-// TODO: Google Analytics
-// TODO: Amazon Link with ingredients and price
+// TODO: 1. Amazon Link with ingredients and price
+// TODO: 2. Google Analytics
+// TODO: 3. Email subscription
+// TODO: 4. Search
+// TODO: 5. Other tabs
