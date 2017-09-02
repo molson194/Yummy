@@ -171,6 +171,7 @@ $(document).ready(function() {
     }
 
     if (changed) {
+      $("#recipelist").empty();
       $.getJSON("/static/recipes.json", function(result) {
         result.forEach(function(element) {
           $("#recipelist").append(text1a + "recipe/" + element.title + text1b + element.image + text2a + "recipe/" + element.title + text2b + element.title + text3 + element.description + text4 + element.time + text5 + element.price + text6);
