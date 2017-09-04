@@ -12,7 +12,7 @@
 	"fat": 10,
 	"protein": 10,
 	"nutrition": "Sugar : 10 g, Sat Fat : 5 g",
-	"ingredients": ["Chicken", "Potatoes", "Olive Oil", "Greens"],
+	"ingredients": [{"name": "Chicken", "price" : 5, "servings" : 1, "asin" : "B00AR0ZZ62"}, {"name": "Potatoes", "price" : 5, "servings" : 0.33, "asin" : "B000NSKB7Q"}, {"name": "Olive Oil", "price" : 5, "servings" : 1, "asin" : "B074J5L82N"}, {"name": "Greens", "price" : 5, "servings" : 1, "asin" : "B000P7188G"}],
 	"directions": ["Cut", "Cook", "Serve"]
 },
 {
@@ -29,7 +29,7 @@
 	"fat": 10,
 	"protein": 10,
 	"nutrition": "Sugar : 10 g, Sat Fat : 5 g",
-	"ingredients": ["Pepperoni", "Bread", "Olive Oil"],
+	"ingredients": [{"name": "Crust", "price" : 5, "servings" : 1, "asin" : "B000SKPEO4"}, {"name": "Cheese", "price" : 5, "servings" : 0.5, "asin" : "B01DNOAUU4"}],
 	"directions": ["Bake", "Serve"]
 },
 {
@@ -46,7 +46,7 @@
 	"fat": 10,
 	"protein": 10,
 	"nutrition": "Sugar : 10 g, Sat Fat : 5 g",
-	"ingredients": ["Pesto", "Pasta", "Olive Oil", "Greens"],
+	"ingredients": [{"name": "Pasta", "price" : 5, "servings" : 1, "asin" : "B074H6R3PL"}],
 	"directions": ["Cut", "Cook", "Serve"]
 },
 {
@@ -63,7 +63,7 @@
 	"fat": 10,
 	"protein": 10,
 	"nutrition": "Sugar : 10 g, Sat Fat : 5 g",
-	"ingredients": ["Burger", "Buns", "Ketchup", "Lettuce", "Tomatoes"],
+	"ingredients": [{"name": "Burger", "price" : 5, "servings" : 3, "asin" : "B01N5MAW3Z"}],
 	"directions": ["Grill", "Prepare", "Serve"]
 },
 {
@@ -80,6 +80,6 @@
 	"fat": 10,
 	"protein": 10,
 	"nutrition": "Sugar : 10 g, Sat Fat : 5 g",
-	"ingredients": ["Chicken", "Tacos", "Salsa", "Greens"],
+	"ingredients": [{"name": "Chicken", "price" : 5, "servings" : 1, "asin" : "B00AR0ZZ62"}],
 	"directions": ["Cut", "Cook", "Serve"]
 }]

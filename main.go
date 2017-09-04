@@ -37,8 +37,10 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Amazon Link with ingredients and price
-// TODO: 2. Google Analytics
-// TODO: 3. Email subscription
-// TODO: 4. Search
-// TODO: 5. Other tabs
+// TODO: 1. Google Analytics
+// TODO: 2. Email subscription. Footer. Front images
+// TODO: 3. Change to server side data and templates (closer to database)
+// TODO: 4. Calculate price from ingredients and portion amount. Popover note about how price is calculated
+// TODO: 5. Get rid of num served. Replace filter with nutrition
+// TODO: 6. Search
+// TODO: 7. Other tabs
