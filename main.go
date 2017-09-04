@@ -37,10 +37,11 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Google Analytics
-// TODO: 2. Email subscription. Footer. Front images
-// TODO: 3. Change to server side data and templates (closer to database)
-// TODO: 4. Calculate price from ingredients and portion amount. Popover note about how price is calculated
-// TODO: 5. Get rid of num served. Replace filter with nutrition
-// TODO: 6. Search
-// TODO: 7. Other tabs
+// TODO: 1. Email subscription. Footer. Front images
+// TODO: 2. Change to server side data and templates (closer to database)
+// TEST WITH AMAZON FRESH USER
+// TODO: 3. Calculate price from ingredients and portion amount. Popover note about how price is calculated
+// TODO: 4. Get rid of num served. Replace filter with nutrition
+// TODO: 5. Search
+// TODO: 6. Other tabs
+// THOUGHT: Should it be a single meal or 3 meals to completely use the resources
