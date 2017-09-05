@@ -23,11 +23,11 @@ func subscribe(w http.ResponseWriter, r *http.Request) {
 
 	from := mail.NewEmail("FOOD", "food@food.com")
 	subject := "Thanks for Subscribing"
-	to := mail.NewEmail("Example User", email)
-	plainTextContent := "Can't wait to share our favorite recipes with you!"
-	htmlContent := ""
+	to := mail.NewEmail("New Subscriber", email)
+	plainTextContent := " "
+	htmlContent := "<p>We can't wait to share our favorite recipes with you!</p>"
 	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-	client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
+	client := sendgrid.NewSendClient("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")
 	client.Send(message)
 	/*
 		rows, _ := db.Query("SELECT * FROM emails")
