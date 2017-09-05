@@ -8,12 +8,37 @@ import _ "github.com/lib/pq"
 import "database/sql"
 import "github.com/sendgrid/sendgrid-go"
 import "github.com/sendgrid/sendgrid-go/helpers/mail"
+import "encoding/json"
+import "io/ioutil"
 
 var db *sql.DB
+var recipes []Recipe
 
-// Recipe : Title
+// Ingredient : Parts of ingredient
+type Ingredient struct {
+	Name     string
+	Price    int
+	Servings float32
+	ASIN     string
+}
+
+// Recipe : Parts of a recipe
 type Recipe struct {
-	Title string
+	Title       string
+	Image       string
+	Description string
+	Time        float32
+	Price       int
+	Region      string
+	Meat        string
+	Serves      int
+	Calories    int
+	Carbs       float32
+	Fat         float32
+	Protein     float32
+	Nutrition   string
+	Ingredients []Ingredient
+	Directions  []string
 }
 
 func subscribe(w http.ResponseWriter, r *http.Request) {
@@ -49,10 +74,17 @@ func home(w http.ResponseWriter, r *http.Request) {
 func recipe(w http.ResponseWriter, r *http.Request) {
 	title := r.URL.Path[len("/recipe/"):]
 	recipePage, _ := template.ParseFiles("templates/recipe.html")
-	recipePage.Execute(w, &Recipe{Title: title})
+	for k := range recipes {
+		if title == recipes[k].Title {
+			recipePage.Execute(w, &recipes[k])
+		}
+	}
 }
 
 func main() {
+	file, _ := ioutil.ReadFile("static/recipes.json")
+	json.Unmarshal(file, &recipes)
+
 	db, _ = sql.Open("postgres", "postgres://nkjplgcudchzta:7d21aff54ce6c3e66f5bbd815dd29e74d442e0dd344311dde85cf10462488bae@ec2-23-21-184-113.compute-1.amazonaws.com:5432/db1605r628ae6n")
 	defer db.Close()
 	db.Exec("CREATE TABLE IF NOT EXISTS emails (email VARCHAR (50) NOT NULL UNIQUE)")

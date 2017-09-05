@@ -62,10 +62,10 @@
 
   <div class="container">
     <h1 id="title" class="my-4">{{.Title}}</h1>
-    <img id="image" class="img-fluid " alt="Responsive image">
+    <img id="image" src="{{.Image}}" class="img-fluid " alt="Responsive image">
     <div class="row justify-content-lg-center mt-3">
       <div class="col-lg-10 col-md-12">
-        <p id="description"></p>
+        <p id="description">{{.Description}}</p>
       </div>
     </div>
     <div class="container">
@@ -73,11 +73,11 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card mb-4">
             <div class="card-body">
-              <p id="time"><strong>Time:</strong> </p>
-              <p id="price"><strong>Price:</strong> </p>
-              <p id="region"><strong>Region:</strong> </p>
-              <p id="meat"><strong>Meat:</strong> </p>
-              <p id="serves"><strong>Serves:</strong> </p>
+              <p id="time"><strong>Time:</strong> {{.Time}}</p>
+              <p id="price"><strong>Price:</strong> {{.Price}}</p>
+              <p id="region"><strong>Region:</strong> {{.Region}}</p>
+              <p id="meat"><strong>Meat:</strong> {{.Meat}}</p>
+              <p id="serves"><strong>Serves:</strong> {{.Serves}}</p>
               <p id="equipment"><strong>Equipment:</strong> TODO: Equipment</p>
             </div>
           </div>
@@ -85,6 +85,13 @@
             <div class="card-body">
               <h5 class="mb-3">Ingredients</h5>
               <div id="ingredients" class="container-fluid">
+                {{range $ingredient := .Ingredients}}
+                <div class="checkbox">
+                  <label>
+                    <input data-asin="{{$ingredient.ASIN}}" data-servings="{{$ingredient.Servings}}" type="checkbox">&nbsp;&nbsp;{{$ingredient.Name}} (${{$ingredient.Price}} serves {{$ingredient.Servings}})
+                  </label>
+                </div>
+                {{end}}
               </div>
               <button onclick="buyChecked()" class="btn btn-block btn-warning mt-3">Buy on Amazon</button>
             </div>
@@ -95,6 +102,9 @@
             <div class="card-body">
               <h3 class="mb-3">Directions</h3>
               <ol id="directions">
+                {{range $direction := .Directions}}
+                <li>{{$direction}}</li>
+                {{end}}
               </ol>
             </div>
           </div>
@@ -104,14 +114,14 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-6 col-md-12">
-                    <p id="calories"><strong>Calories:</strong> </p>
-                    <p id="carbs"><strong>Carbs:</strong> </p>
+                    <p id="calories"><strong>Calories:</strong> {{.Calories}}</p>
+                    <p id="carbs"><strong>Carbs:</strong> {{.Carbs}}</p>
                   </div>
                   <div class="col-lg-6 col-md-12">
-                    <p id="protein"><strong>Protein:</strong> </p>
-                    <p id="fat"><strong>Fat:</strong> </p>
+                    <p id="protein"><strong>Protein:</strong> {{.Protein}}</p>
+                    <p id="fat"><strong>Fat:</strong> {{.Fat}}</p>
                   </div>
-                  <p id="nutrition"></p>
+                  <p id="nutrition">{{.Nutrition}}</p>
                 </div>
               </div>
             </div>
@@ -145,7 +155,7 @@
           <p class="m-0 text-center text-white">Sending you the goods since 1853</p>
         </div>
         <div class="col-md-3 col-sm-12 pt-4">
-          <p class="m-0 text-center text-white">@FOOD</p>
+          <p class="m-0 text-center text-white">Contact molson194@gmail.com</p>
         </div>
       </div>
     </div>
