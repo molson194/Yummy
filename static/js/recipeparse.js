@@ -31,6 +31,17 @@ $(document).ready(function() {
       }
     });
   });
+
+  $('#contactForm').submit(function() {
+    // TODO: email processing
+    console.log($('#email').val());
+    $.post("../../subscribe/" + $('#email').val());
+
+    $('#contactDiv').empty();
+    $('#contactDiv').append("<h6>Thanks for signing up!</h6>");
+    return false;
+  });
+
 });
 
 function buyChecked() {

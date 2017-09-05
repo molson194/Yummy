@@ -4,10 +4,43 @@ import "fmt"
 import "net/http"
 import "html/template"
 import "os"
+import _ "github.com/lib/pq"
+import "database/sql"
+
+/*
+EMAIL SENDING
+import "github.com/sendgrid/sendgrid-go"
+import "github.com/sendgrid/sendgrid-go/helpers/mail"
+from := mail.NewEmail("FOOD", "food@food.com")
+subject := "Sending with SendGrid is Fun"
+to := mail.NewEmail("Example User", "test@example.com")
+plainTextContent := "and easy to do anywhere, even with Go"
+htmlContent := "<strong>and easy to do anywhere, even with Go</strong>"
+message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
+client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY")) NOTE: NEED TO EXPORT SENDGRID_API_KEY
+response, _ := client.Send(message)
+*/
+
+var db *sql.DB
 
 // Recipe : Title
 type Recipe struct {
 	Title string
+}
+
+func subscribe(w http.ResponseWriter, r *http.Request) {
+	email := r.URL.Path[len("/subscribe/"):]
+	db.QueryRow("INSERT INTO emails(email) VALUES($1);", email)
+	/*
+		rows, _ := db.Query("SELECT * FROM emails")
+
+		defer rows.Close()
+		for rows.Next() {
+			var email string
+			rows.Scan(&email)
+			fmt.Println(email)
+		}
+	*/
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
@@ -22,8 +55,13 @@ func recipe(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	db, _ = sql.Open("postgres", "postgres://nkjplgcudchzta:7d21aff54ce6c3e66f5bbd815dd29e74d442e0dd344311dde85cf10462488bae@ec2-23-21-184-113.compute-1.amazonaws.com:5432/db1605r628ae6n")
+	defer db.Close()
+	db.Exec("CREATE TABLE IF NOT EXISTS emails (email VARCHAR (50) NOT NULL UNIQUE)")
+
 	http.HandleFunc("/", home)
 	http.HandleFunc("/recipe/", recipe)
+	http.HandleFunc("/subscribe/", subscribe)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	fmt.Println("Starting server...")
 	http.ListenAndServe(getPort(), nil)
@@ -37,11 +75,10 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Email subscription. Footer. Front images
-// TODO: 2. Change to server side data and templates (closer to database)
+// TODO: 1. Change to server side data and templates (closer to database)
 // TEST WITH AMAZON FRESH USER
-// TODO: 3. Calculate price from ingredients and portion amount. Popover note about how price is calculated
-// TODO: 4. Get rid of num served. Replace filter with nutrition
-// TODO: 5. Search
-// TODO: 6. Other tabs
+// TODO: 2. Calculate price from ingredients and portion amount. Popover note about how price is calculated
+// TODO: 3. Get rid of num served. Replace filter with nutrition
+// TODO: 4. Search
+// TODO: 5. Other tabs
 // THOUGHT: Should it be a single meal or 3 meals to completely use the resources

@@ -185,4 +185,15 @@ $(document).ready(function() {
       $("#recipelist").append(text1a + "recipe/" + element.title + text1b + element.image + text2a + "recipe/" + element.title + text2b + element.title + text3 + element.description + text4 + element.time + text5 + element.price + text6);
     });
   });
+
+  $('#contactForm').submit(function() {
+    // TODO: email processing
+    console.log($('#email').val());
+    $.post("/subscribe/" + $('#email').val());
+
+    $('#contactDiv').empty();
+    $('#contactDiv').append("<h6>Thanks for signing up!</h6>");
+    return false;
+  });
+
 });
