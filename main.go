@@ -6,20 +6,8 @@ import "html/template"
 import "os"
 import _ "github.com/lib/pq"
 import "database/sql"
-
-/*
-EMAIL SENDING
 import "github.com/sendgrid/sendgrid-go"
 import "github.com/sendgrid/sendgrid-go/helpers/mail"
-from := mail.NewEmail("FOOD", "food@food.com")
-subject := "Sending with SendGrid is Fun"
-to := mail.NewEmail("Example User", "test@example.com")
-plainTextContent := "and easy to do anywhere, even with Go"
-htmlContent := "<strong>and easy to do anywhere, even with Go</strong>"
-message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY")) NOTE: NEED TO EXPORT SENDGRID_API_KEY
-response, _ := client.Send(message)
-*/
 
 var db *sql.DB
 
@@ -30,7 +18,17 @@ type Recipe struct {
 
 func subscribe(w http.ResponseWriter, r *http.Request) {
 	email := r.URL.Path[len("/subscribe/"):]
+	// TODO: if email isn't in db yet
 	db.QueryRow("INSERT INTO emails(email) VALUES($1);", email)
+
+	from := mail.NewEmail("FOOD", "food@food.com")
+	subject := "Thanks for Subscribing"
+	to := mail.NewEmail("Example User", email)
+	plainTextContent := "Can't wait to share our favorite recipes with you!"
+	htmlContent := ""
+	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
+	client := sendgrid.NewSendClient(os.Getenv("SENDGRID_API_KEY"))
+	client.Send(message)
 	/*
 		rows, _ := db.Query("SELECT * FROM emails")
 

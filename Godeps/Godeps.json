@@ -15,6 +15,21 @@
 			"ImportPath": "github.com/lib/pq/oid",
 			"Comment": "go1.0-cutoff-145-ga6657b2",
 			"Rev": "a6657b2386e9b8be76484c08711b02c7cf867ead"
+		},
+		{
+			"ImportPath": "github.com/sendgrid/rest",
+			"Comment": "v2.4.0-1-g14de1ac",
+			"Rev": "14de1ac72d9ae5c3c0d7c02164c52ebd3b951a4e"
+		},
+		{
+			"ImportPath": "github.com/sendgrid/sendgrid-go",
+			"Comment": "v3.4.1-2-g36381c8",
+			"Rev": "36381c8cda905f8b20b12db18d5b5b0b015d9d43"
+		},
+		{
+			"ImportPath": "github.com/sendgrid/sendgrid-go/helpers/mail",
+			"Comment": "v3.4.1-2-g36381c8",
+			"Rev": "36381c8cda905f8b20b12db18d5b5b0b015d9d43"
 		}
 	]
 }
