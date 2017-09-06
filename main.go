@@ -32,7 +32,7 @@ type Recipe struct {
 	Price       int
 	Region      string
 	Meat        string
-	Serves      int
+	Meals       int
 	Calories    int
 	Carbs       float32
 	Fat         float32
@@ -77,10 +77,10 @@ func costFilter(w http.ResponseWriter, r *http.Request) {
 	active := strings.Split(r.URL.Path[len("/costfilter/"):], "+")
 	var filteredRecipes []Recipe
 	for k := range recipes {
-		cost0 := recipes[k].Price >= 0 && recipes[k].Price <= 5 && active[0] == "true"
-		cost1 := recipes[k].Price >= 5 && recipes[k].Price <= 10 && active[1] == "true"
-		cost2 := recipes[k].Price >= 10 && recipes[k].Price <= 15 && active[2] == "true"
-		cost3 := recipes[k].Price >= 15 && active[3] == "true"
+		cost0 := recipes[k].Price/recipes[k].Meals >= 0 && recipes[k].Price/recipes[k].Meals < 4 && active[0] == "true"
+		cost1 := recipes[k].Price/recipes[k].Meals >= 4 && recipes[k].Price/recipes[k].Meals < 8 && active[1] == "true"
+		cost2 := recipes[k].Price/recipes[k].Meals >= 8 && recipes[k].Price/recipes[k].Meals < 12 && active[2] == "true"
+		cost3 := recipes[k].Price/recipes[k].Meals >= 12 && active[3] == "true"
 		if cost0 || cost1 || cost2 || cost3 {
 			filteredRecipes = append(filteredRecipes, recipes[k])
 		}
@@ -140,14 +140,14 @@ func meatFilter(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-func servesFilter(w http.ResponseWriter, r *http.Request) {
-	active := strings.Split(r.URL.Path[len("/servesfilter/"):], "+")
+func mealsFilter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/mealsfilter/"):], "+")
 	var filteredRecipes []Recipe
 	for k := range recipes {
-		serves0 := recipes[k].Serves >= 1 && recipes[k].Serves <= 4 && active[0] == "true"
-		serves1 := recipes[k].Serves >= 4 && recipes[k].Serves <= 8 && active[1] == "true"
-		serves2 := recipes[k].Serves >= 8 && active[2] == "true"
-		if serves0 || serves1 || serves2 {
+		meals0 := recipes[k].Meals == 1 && active[0] == "true"
+		meals1 := recipes[k].Meals == 2 && active[1] == "true"
+		meals2 := recipes[k].Meals == 3 && active[2] == "true"
+		if meals0 || meals1 || meals2 {
 			filteredRecipes = append(filteredRecipes, recipes[k])
 		}
 	}
@@ -174,6 +174,13 @@ func recipe(w http.ResponseWriter, r *http.Request) {
 func main() {
 	file, _ := ioutil.ReadFile("static/recipes.json")
 	json.Unmarshal(file, &recipes)
+	for k := range recipes {
+		price := 0
+		for i := range recipes[k].Ingredients {
+			price += recipes[k].Ingredients[i].Price
+		}
+		recipes[k].Price = price
+	}
 
 	db, _ = sql.Open("postgres", "postgres://nkjplgcudchzta:7d21aff54ce6c3e66f5bbd815dd29e74d442e0dd344311dde85cf10462488bae@ec2-23-21-184-113.compute-1.amazonaws.com:5432/db1605r628ae6n")
 	defer db.Close()
@@ -187,7 +194,7 @@ func main() {
 	http.HandleFunc("/timefilter/", timeFilter)
 	http.HandleFunc("/regionfilter/", regionFilter)
 	http.HandleFunc("/meatfilter/", meatFilter)
-	http.HandleFunc("/servesfilter/", servesFilter)
+	http.HandleFunc("/mealsfilter/", mealsFilter)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	fmt.Println("Starting server...")
 	http.ListenAndServe(getPort(), nil)
@@ -201,7 +208,9 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Calculate price from ingredients. Popover note about how price is calculated
-// TODO: 2. Get rid of num served. Replace number of meals (switch to finish perishables model). Quantity (not servings) for ingredients
-// TODO: 3. Search
-// TODO: 4. Other tabs
+// TODO: 1. Get request price of ingredients from amazon
+// TODO: 2. Get rid of num served. Replace number of meals (switch to finish perishables model). Quantity (not servings) for ingredients. Accordian
+// TODO: 3. Other tabs
+// TEST WITH FRESH USER
+
+// TODO Long Term: Search

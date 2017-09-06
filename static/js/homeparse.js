@@ -1,3 +1,9 @@
+$(document).ready(function() {
+  $(".recipePrice").each(function() {
+    $(this).html(getDollars($(this)[0].dataset.price, $(this)[0].dataset.meals));
+  });
+});
+
 $("#cost0,#cost1,#cost2,#cost3").change(function() {
   $("#recipelist").empty();
   var numChecks = $("#cost0").is(":checked") + $("#cost1").is(":checked") + $("#cost2").is(":checked") + $("#cost3").is(":checked");
@@ -48,15 +54,15 @@ $("#meatCh,#meatBf,#meatFi,#meatPk,#meatVg").change(function() {
 
 });
 
-$("#serves0,#serves1,#serves2").change(function() {
+$("#meals0,#meals1,#meals2").change(function() {
   $("#recipelist").empty();
-  var numChecks = $("#serves0").is(":checked") + $("#serves1").is(":checked") + $("#serves2").is(":checked");
+  var numChecks = $("#meals0").is(":checked") + $("#meals1").is(":checked") + $("#meals2").is(":checked");
   if (numChecks == 0) {
-    $("#servesButton").html("Serves");
+    $("#mealsButton").html("Meals");
     populateRecipes("/nofilter");
   } else {
-    $("#servesButton").html("Serves(" + numChecks + ")");
-    populateRecipes("/servesfilter/" + $("#serves0").is(":checked") + "+" + $("#serves1").is(":checked") + "+" + $("#serves2").is(":checked"));
+    $("#mealsButton").html("Meals(" + numChecks + ")");
+    populateRecipes("/mealsfilter/" + $("#meals0").is(":checked") + "+" + $("#meals1").is(":checked") + "+" + $("#meals2").is(":checked"));
   }
 });
 
@@ -83,9 +89,9 @@ $("#resetButton").click(function() {
     $("#meatButton").html("Meat");
     changed = true;
   }
-  if ($("#serves0,#serves1,#serves2").is(":checked")) {
-    $("#serves0,#serves1,#serves2").prop('checked', false);
-    $("#servesButton").html("Serves");
+  if ($("#meals0,#meals1,#meals2").is(":checked")) {
+    $("#meals0,#meals1,#meals2").prop('checked', false);
+    $("#mealsButton").html("Meals");
     changed = true;
   }
 
@@ -102,13 +108,22 @@ function populateRecipes(url) {
   var text2b = "\">";
   var text3 = "</a></h4><p class=\"card-text\">";
   var text4 = "</p><div class=\"container-fluid bottom-align-text\"><p class=\"font-weight-bold\"><span style=\"float:left;\">&#128336; &nbsp; ";
-  var text5 = " hr</span><span style=\"float:right;\">$";
-  var text6 = " pp</span></p></div></div></div></div>";
+  var text5 = " hr</span><span style=\"float:right;\">";
+  var text6 = "</span></p></div></div></div></div>";
   $.get(url, function(recipes) {
     recipes.forEach(function(element) {
-      $("#recipelist").append(text1a + "recipe/" + element.Title + text1b + element.Image + text2a + "recipe/" + element.Title + text2b + element.Title + text3 + element.Description + text4 + element.Time + text5 + element.Price + text6);
+      $("#recipelist").append(text1a + "recipe/" + element.Title + text1b + element.Image + text2a + "recipe/" + element.Title + text2b + element.Title + text3 + element.Description + text4 + element.Time + text5 + getDollars(element.Price, element.Meals) + text6);
     });
   });
+}
+
+function getDollars(price, meals) {
+  var dollars = "$";
+  var ppm = Math.min(Math.floor(price / meals / 4.0), 3);
+  for (i = 0; i < ppm; i++) {
+    dollars += "$";
+  }
+  return dollars;
 }
 
 $('#contactForm').submit(function() {

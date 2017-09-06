@@ -117,10 +117,10 @@
           <div class="button-group">
             <button id="priceButton" type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">Price</button>
             <ul class="dropdown-menu col-lg-2">
-              <li>&nbsp; <input type="checkbox" id="cost0" />&nbsp;&nbsp;$0-$5</li>
-              <li>&nbsp; <input type="checkbox" id="cost1" />&nbsp;&nbsp;$5-$10</li>
-              <li>&nbsp; <input type="checkbox" id="cost2" />&nbsp;&nbsp;$10-$15</li>
-              <li>&nbsp; <input type="checkbox" id="cost3" />&nbsp;&nbsp;More than $15</li>
+              <li>&nbsp; <input type="checkbox" id="cost0" />&nbsp;&nbsp;$</li>
+              <li>&nbsp; <input type="checkbox" id="cost1" />&nbsp;&nbsp;$$</li>
+              <li>&nbsp; <input type="checkbox" id="cost2" />&nbsp;&nbsp;$$$</li>
+              <li>&nbsp; <input type="checkbox" id="cost3" />&nbsp;&nbsp;$$$$</li>
             </ul>
           </div>
         </div>
@@ -159,11 +159,11 @@
         </div>
         <div class="col-lg-2 col-md-4 col-sm-6 p-1">
           <div class="button-group">
-            <button id="servesButton" type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">Serves</button>
+            <button id="mealsButton" type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">Meals</button>
             <ul class="dropdown-menu">
-              <li>&nbsp; <input type="checkbox" id="serves0" />&nbsp;&nbsp;1-4</li>
-              <li>&nbsp; <input type="checkbox" id="serves1" />&nbsp;&nbsp;4-8</li>
-              <li>&nbsp; <input type="checkbox" id="serves2" />&nbsp;&nbsp;More than 8</li>
+              <li>&nbsp; <input type="checkbox" id="meals0" />&nbsp;&nbsp;1</li>
+              <li>&nbsp; <input type="checkbox" id="meals1" />&nbsp;&nbsp;2</li>
+              <li>&nbsp; <input type="checkbox" id="meals2" />&nbsp;&nbsp;3</li>
             </ul>
           </div>
         </div>
@@ -185,7 +185,7 @@
             <p class="card-text">{{$recipe.Description}}</p>
             <div class="container-fluid bottom-align-text">
               <p class="font-weight-bold">
-                <span style="float:left;">&#128336; &nbsp; {{$recipe.Time}}  hr</span><span style="float:right;">${{$recipe.Price}} pp</span>
+                <span style="float:left;">&#128336; &nbsp; {{$recipe.Time}}  hr</span><span class="recipePrice" data-price="{{$recipe.Price}}" data-meals="{{$recipe.Meals}}" style="float:right;"></span>
               </p>
             </div>
           </div>
