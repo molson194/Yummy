@@ -176,6 +176,22 @@
     </div>
 
     <div id="recipelist" class="row">
+      {{range $recipe := .}}
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="recipe/{{$recipe.Title}}"><img class="card-img-top" src="{{$recipe.Image}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title"><a href="recipe/{{$recipe.Title}}">{{$recipe.Title}}</a></h4>
+            <p class="card-text">{{$recipe.Description}}</p>
+            <div class="container-fluid bottom-align-text">
+              <p class="font-weight-bold">
+                <span style="float:left;">&#128336; &nbsp; {{$recipe.Time}}  hr</span><span style="float:right;">${{$recipe.Price}} pp</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{end}}
     </div>
     <!-- /.row -->
 

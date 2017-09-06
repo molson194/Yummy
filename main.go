@@ -10,6 +10,7 @@ import "github.com/sendgrid/sendgrid-go"
 import "github.com/sendgrid/sendgrid-go/helpers/mail"
 import "encoding/json"
 import "io/ioutil"
+import "strings"
 
 var db *sql.DB
 var recipes []Recipe
@@ -66,9 +67,98 @@ func subscribe(w http.ResponseWriter, r *http.Request) {
 	*/
 }
 
+func noFilter(w http.ResponseWriter, r *http.Request) {
+	js, _ := json.Marshal(recipes)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
+func costFilter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/costfilter/"):], "+")
+	var filteredRecipes []Recipe
+	for k := range recipes {
+		cost0 := recipes[k].Price >= 0 && recipes[k].Price <= 5 && active[0] == "true"
+		cost1 := recipes[k].Price >= 5 && recipes[k].Price <= 10 && active[1] == "true"
+		cost2 := recipes[k].Price >= 10 && recipes[k].Price <= 15 && active[2] == "true"
+		cost3 := recipes[k].Price >= 15 && active[3] == "true"
+		if cost0 || cost1 || cost2 || cost3 {
+			filteredRecipes = append(filteredRecipes, recipes[k])
+		}
+	}
+	js, _ := json.Marshal(filteredRecipes)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
+func timeFilter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/timefilter/"):], "+")
+	var filteredRecipes []Recipe
+	for k := range recipes {
+		time0 := recipes[k].Time >= 0 && recipes[k].Time <= 0.5 && active[0] == "true"
+		time1 := recipes[k].Time >= 0.5 && recipes[k].Time <= 1 && active[1] == "true"
+		time2 := recipes[k].Time >= 1.5 && active[2] == "true"
+		if time0 || time1 || time2 {
+			filteredRecipes = append(filteredRecipes, recipes[k])
+		}
+	}
+	js, _ := json.Marshal(filteredRecipes)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
+func regionFilter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/regionfilter/"):], "+")
+	var filteredRecipes []Recipe
+	for k := range recipes {
+		regionAm := recipes[k].Region == "American" && active[0] == "true"
+		regionIt := recipes[k].Region == "Italian" && active[1] == "true"
+		regionCh := recipes[k].Region == "Chinese" && active[2] == "true"
+		regionMx := recipes[k].Region == "Mexican" && active[3] == "true"
+		if regionAm || regionIt || regionCh || regionMx {
+			filteredRecipes = append(filteredRecipes, recipes[k])
+		}
+	}
+	js, _ := json.Marshal(filteredRecipes)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+func meatFilter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/meatfilter/"):], "+")
+	var filteredRecipes []Recipe
+	for k := range recipes {
+		meatCh := recipes[k].Meat == "Chicken" && active[0] == "true"
+		meatBf := recipes[k].Meat == "Beef" && active[1] == "true"
+		meatFi := recipes[k].Meat == "Fish" && active[2] == "true"
+		meatPk := recipes[k].Meat == "Pork" && active[3] == "true"
+		meatVg := recipes[k].Meat == "Vegetarian" && active[4] == "true"
+		if meatCh || meatBf || meatFi || meatPk || meatVg {
+			filteredRecipes = append(filteredRecipes, recipes[k])
+		}
+	}
+	js, _ := json.Marshal(filteredRecipes)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
+func servesFilter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/servesfilter/"):], "+")
+	var filteredRecipes []Recipe
+	for k := range recipes {
+		serves0 := recipes[k].Serves >= 1 && recipes[k].Serves <= 4 && active[0] == "true"
+		serves1 := recipes[k].Serves >= 4 && recipes[k].Serves <= 8 && active[1] == "true"
+		serves2 := recipes[k].Serves >= 8 && active[2] == "true"
+		if serves0 || serves1 || serves2 {
+			filteredRecipes = append(filteredRecipes, recipes[k])
+		}
+	}
+	js, _ := json.Marshal(filteredRecipes)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
 func home(w http.ResponseWriter, r *http.Request) {
 	homePage, _ := template.ParseFiles("templates/home.html")
-	homePage.Execute(w, nil)
+	homePage.Execute(w, &recipes)
 }
 
 func recipe(w http.ResponseWriter, r *http.Request) {
@@ -92,6 +182,12 @@ func main() {
 	http.HandleFunc("/", home)
 	http.HandleFunc("/recipe/", recipe)
 	http.HandleFunc("/subscribe/", subscribe)
+	http.HandleFunc("/nofilter/", noFilter)
+	http.HandleFunc("/costfilter/", costFilter)
+	http.HandleFunc("/timefilter/", timeFilter)
+	http.HandleFunc("/regionfilter/", regionFilter)
+	http.HandleFunc("/meatfilter/", meatFilter)
+	http.HandleFunc("/servesfilter/", servesFilter)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	fmt.Println("Starting server...")
 	http.ListenAndServe(getPort(), nil)
@@ -105,10 +201,7 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Change to server side data and templates (closer to database)
-// TEST WITH AMAZON FRESH USER
-// TODO: 2. Calculate price from ingredients and portion amount. Popover note about how price is calculated
-// TODO: 3. Get rid of num served. Replace filter with nutrition
-// TODO: 4. Search
-// TODO: 5. Other tabs
-// THOUGHT: Should it be a single meal or 3 meals to completely use the resources
+// TODO: 1. Calculate price from ingredients. Popover note about how price is calculated
+// TODO: 2. Get rid of num served. Replace number of meals (switch to finish perishables model). Quantity (not servings) for ingredients
+// TODO: 3. Search
+// TODO: 4. Other tabs
