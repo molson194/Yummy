@@ -2,6 +2,7 @@ $(document).ready(function() {
   $(".recipePrice").each(function() {
     $(this).html(getDollars($(this)[0].dataset.price, $(this)[0].dataset.servings));
   });
+  $('[data-toggle="popover"]').popover();
 });
 
 $("#cost0,#cost1,#cost2,#cost3,#time0,#time1,#time2,#regionUs,#regionIt,#regionCh,#regionMx,#meatCh,#meatBf,#meatFi,#meatPk,#meatVg,#servings0,#servings1,#servings2").change(function() {

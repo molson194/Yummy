@@ -162,8 +162,7 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Other tabs
-// TODO: 2. TEST WITH FRESH USER
-// TODO: 3. Create recipes
+// TODO: 1. TEST WITH FRESH USER
+// TODO: 2. Create recipes
 
-// TODO Long Term: Change to darker front images, Search
+// TODO Long Term: Other tabs, Search

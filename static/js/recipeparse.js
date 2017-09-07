@@ -1,3 +1,7 @@
+$(document).ready(function() {
+  $('[data-toggle="popover"]').popover();
+});
+
 $('#contactForm').submit(function() {
   if (validateEmail($('#email').val())) {
     $.post("../../subscribe/" + $('#email').val());
