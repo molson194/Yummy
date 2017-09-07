@@ -32,7 +32,7 @@ type Recipe struct {
 	Price       float32
 	Region      string
 	Meat        string
-	Meals       int
+	Servings    int
 	Calories    int
 	Carbs       float32
 	Fat         float32
@@ -80,12 +80,12 @@ func filter(w http.ResponseWriter, r *http.Request) {
 	time := active[4] == "false" && active[5] == "false" && active[6] == "false"
 	region := active[7] == "false" && active[8] == "false" && active[9] == "false" && active[10] == "false"
 	meat := active[11] == "false" && active[12] == "false" && active[13] == "false" && active[14] == "false" && active[15] == "false"
-	meals := active[15] == "false" && active[16] == "false" && active[17] == "false" && active[18] == "false"
+	servings := active[15] == "false" && active[16] == "false" && active[17] == "false" && active[18] == "false"
 	for k := range recipes {
-		cost0 := recipes[k].Price/float32(recipes[k].Meals) >= 0 && recipes[k].Price/float32(recipes[k].Meals) < 4 && active[0] == "true"
-		cost1 := recipes[k].Price/float32(recipes[k].Meals) >= 4 && recipes[k].Price/float32(recipes[k].Meals) < 8 && active[1] == "true"
-		cost2 := recipes[k].Price/float32(recipes[k].Meals) >= 8 && recipes[k].Price/float32(recipes[k].Meals) < 12 && active[2] == "true"
-		cost3 := recipes[k].Price/float32(recipes[k].Meals) >= 12 && active[3] == "true"
+		cost0 := recipes[k].Price/float32(recipes[k].Servings) >= 0 && recipes[k].Price/float32(recipes[k].Servings) < 4 && active[0] == "true"
+		cost1 := recipes[k].Price/float32(recipes[k].Servings) >= 4 && recipes[k].Price/float32(recipes[k].Servings) < 8 && active[1] == "true"
+		cost2 := recipes[k].Price/float32(recipes[k].Servings) >= 8 && recipes[k].Price/float32(recipes[k].Servings) < 12 && active[2] == "true"
+		cost3 := recipes[k].Price/float32(recipes[k].Servings) >= 12 && active[3] == "true"
 		time0 := recipes[k].Time >= 0 && recipes[k].Time <= 0.5 && active[4] == "true"
 		time1 := recipes[k].Time >= 0.5 && recipes[k].Time <= 1 && active[5] == "true"
 		time2 := recipes[k].Time >= 1.5 && active[6] == "true"
@@ -98,10 +98,10 @@ func filter(w http.ResponseWriter, r *http.Request) {
 		meatFi := recipes[k].Meat == "Fish" && active[13] == "true"
 		meatPk := recipes[k].Meat == "Pork" && active[14] == "true"
 		meatVg := recipes[k].Meat == "Vegetarian" && active[15] == "true"
-		meals0 := recipes[k].Meals == 1 && active[16] == "true"
-		meals1 := recipes[k].Meals == 2 && active[17] == "true"
-		meals2 := recipes[k].Meals == 3 && active[18] == "true"
-		if (cost || cost0 || cost1 || cost2 || cost3) && (time || time0 || time1 || time2) && (region || regionAm || regionIt || regionCh || regionMx) && (meat || meatCh || meatBf || meatFi || meatPk || meatVg) && (meals || meals0 || meals1 || meals2) {
+		servings0 := recipes[k].Servings >= 1 && recipes[k].Servings <= 3 && active[16] == "true"
+		servings1 := recipes[k].Servings >= 4 && recipes[k].Servings <= 6 && active[17] == "true"
+		servings2 := recipes[k].Servings >= 7 && recipes[k].Servings <= 9 && active[18] == "true"
+		if (cost || cost0 || cost1 || cost2 || cost3) && (time || time0 || time1 || time2) && (region || regionAm || regionIt || regionCh || regionMx) && (meat || meatCh || meatBf || meatFi || meatPk || meatVg) && (servings || servings0 || servings1 || servings2) {
 			filteredRecipes = append(filteredRecipes, recipes[k])
 		}
 	}
@@ -158,8 +158,8 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Accordian
-// TODO: 2. Other tabs
-// TODO: 3. TEST WITH FRESH USER
+// TODO: 1. Other tabs
+// TODO: 2. TEST WITH FRESH USER
+// TODO: 3. Create recipes
 
-// TODO Long Term: Search
+// TODO Long Term: Change to darker front images, Search

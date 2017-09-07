@@ -1,10 +1,10 @@
 $(document).ready(function() {
   $(".recipePrice").each(function() {
-    $(this).html(getDollars($(this)[0].dataset.price, $(this)[0].dataset.meals));
+    $(this).html(getDollars($(this)[0].dataset.price, $(this)[0].dataset.servings));
   });
 });
 
-$("#cost0,#cost1,#cost2,#cost3,#time0,#time1,#time2,#regionUs,#regionIt,#regionCh,#regionMx,#meatCh,#meatBf,#meatFi,#meatPk,#meatVg,#meals0,#meals1,#meals2").change(function() {
+$("#cost0,#cost1,#cost2,#cost3,#time0,#time1,#time2,#regionUs,#regionIt,#regionCh,#regionMx,#meatCh,#meatBf,#meatFi,#meatPk,#meatVg,#servings0,#servings1,#servings2").change(function() {
   $("#recipelist").empty();
 
   var costChecks = $("#cost0").is(":checked") + $("#cost1").is(":checked") + $("#cost2").is(":checked") + $("#cost3").is(":checked");
@@ -35,19 +35,19 @@ $("#cost0,#cost1,#cost2,#cost3,#time0,#time1,#time2,#regionUs,#regionIt,#regionC
     $("#meatButton").html("Meat(" + meatChecks + ")");
   }
 
-  var mealsChecks = $("#meals0").is(":checked") + $("#meals1").is(":checked") + $("#meals2").is(":checked");
-  if (mealsChecks == 0) {
-    $("#mealsButton").html("Meals");
+  var servingsChecks = $("#servings0").is(":checked") + $("#servings1").is(":checked") + $("#servings2").is(":checked");
+  if (servingsChecks == 0) {
+    $("#servingsButton").html("Servings");
   } else {
-    $("#mealsButton").html("Meals(" + mealsChecks + ")");
+    $("#servingsButton").html("Servings(" + servingsChecks + ")");
   }
 
   var costUrl = $("#cost0").is(":checked") + "+" + $("#cost1").is(":checked") + "+" + $("#cost2").is(":checked") + "+" + $("#cost3").is(":checked");
   var timeUrl = $("#time0").is(":checked") + "+" + $("#time1").is(":checked") + "+" + $("#time2").is(":checked");
   var regionUrl = $("#regionUs").is(":checked") + "+" + $("#regionIt").is(":checked") + "+" + $("#regionCh").is(":checked") + "+" + $("#regionMx").is(":checked");
   var meatUrl = $("#meatCh").is(":checked") + "+" + $("#meatBf").is(":checked") + "+" + $("#meatFi").is(":checked") + "+" + $("#meatPk").is(":checked") + "+" + $("#meatVg").is(":checked");
-  var mealsUrl = $("#meals0").is(":checked") + "+" + $("#meals1").is(":checked") + "+" + $("#meals2").is(":checked");
-  populateRecipes("/filter/" + costUrl + "+" + timeUrl + "+" + regionUrl + "+" + meatUrl + "+" + mealsUrl);
+  var servingsUrl = $("#servings0").is(":checked") + "+" + $("#servings1").is(":checked") + "+" + $("#servings2").is(":checked");
+  populateRecipes("/filter/" + costUrl + "+" + timeUrl + "+" + regionUrl + "+" + meatUrl + "+" + servingsUrl);
 });
 
 $("#resetButton").click(function() {
@@ -73,9 +73,9 @@ $("#resetButton").click(function() {
     $("#meatButton").html("Meat");
     changed = true;
   }
-  if ($("#meals0,#meals1,#meals2").is(":checked")) {
-    $("#meals0,#meals1,#meals2").prop('checked', false);
-    $("#mealsButton").html("Meals");
+  if ($("#servings0,#servings1,#servings2").is(":checked")) {
+    $("#servings0,#servings1,#servings2").prop('checked', false);
+    $("#servingsButton").html("Servings");
     changed = true;
   }
 
@@ -96,14 +96,14 @@ function populateRecipes(url) {
   var text6 = "</span></p></div></div></div></div>";
   $.get(url, function(recipes) {
     recipes.forEach(function(element) {
-      $("#recipelist").append(text1a + "recipe/" + element.Title + text1b + element.Image + text2a + "recipe/" + element.Title + text2b + element.Title + text3 + element.Description + text4 + element.Time + text5 + getDollars(element.Price, element.Meals) + text6);
+      $("#recipelist").append(text1a + "recipe/" + element.Title + text1b + element.Image + text2a + "recipe/" + element.Title + text2b + element.Title + text3 + element.Description + text4 + element.Time + text5 + getDollars(element.Price, element.Servings) + text6);
     });
   });
 }
 
-function getDollars(price, meals) {
+function getDollars(price, servings) {
   var dollars = "$";
-  var ppm = Math.min(Math.floor(price / meals / 4.0), 3);
+  var ppm = Math.min(Math.floor(price / servings / 4.0), 3);
   for (i = 0; i < ppm; i++) {
     dollars += "$";
   }

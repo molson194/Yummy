@@ -70,24 +70,24 @@
       <div class="carousel-inner" role="listbox">
         <!-- Slide One - Set the background image for this slide in the line below -->
         <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1453831362806-3d5577f014a4?dpr=1&auto=format&fit=crop&w=1500&h=1016&q=80&cs=tinysrgb&crop=')">
-          <div class="carousel-caption d-none d-md-block">
+          <!-- <div class="carousel-caption d-none d-md-block">
             <h3>Food Delivered to Your Doorstep</h3>
             <p>With AmazonFresh, choose a recipe and skip the store.</p>
-          </div>
+          </div>-->
         </div>
         <!-- Slide Two - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1496412705862-e0088f16f791?dpr=1&auto=format&fit=crop&w=1500&h=1000&q=80&cs=tinysrgb&crop=')">
-          <div class="carousel-caption d-none d-md-block">
+          <!--<div class="carousel-caption d-none d-md-block">
             <h3>Your Favorite Recipes</h3>
             <p>Crafted recipes provide tasty and quick food at an affordable price.</p>
-          </div>
+          </div>-->
         </div>
         <!-- Slide Three - Set the background image for this slide in the line below -->
         <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1469547371150-47620ed0c5ea?dpr=1&auto=format&fit=crop&w=1500&h=997&q=80&cs=tinysrgb&crop=')">
-          <div class="carousel-caption d-none d-md-block">
+          <!--<div class="carousel-caption d-none d-md-block">
             <h3>Never Waste Ingredients</h3>
             <p>Multi-meal recipes use all the perishable food.</p>
-          </div>
+          </div>-->
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -106,7 +106,7 @@
 
     <h1 class="my-4">Welcome to FOOD</h1>
     <p>At FOOD, we know you don't have time to pick a recipe, shop for groceries, and cook every night. We take the hassle out of shopping for groceries by providing direct links from our recipe ingredients to your AmazonFresh cart. Our recipes are affordable,
-      tasty, and delicious. Never waste food by choosing multi-meal recipes that use all perishable ingredients.</p>
+      tasty, and delicious. Never waste food by choosing recipes that use all perishable ingredients.</p>
 
     <div class="container mt-2 mb-2">
       <div class="row">
@@ -159,11 +159,11 @@
         </div>
         <div class="col-lg-2 col-md-4 col-sm-6 p-1">
           <div class="button-group">
-            <button id="mealsButton" type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">Meals</button>
+            <button id="servingsButton" type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown">Servings</button>
             <ul class="dropdown-menu">
-              <li>&nbsp; <input type="checkbox" id="meals0" />&nbsp;&nbsp;1</li>
-              <li>&nbsp; <input type="checkbox" id="meals1" />&nbsp;&nbsp;2</li>
-              <li>&nbsp; <input type="checkbox" id="meals2" />&nbsp;&nbsp;3</li>
+              <li>&nbsp; <input type="checkbox" id="servings0" />&nbsp;&nbsp;1-3</li>
+              <li>&nbsp; <input type="checkbox" id="servings1" />&nbsp;&nbsp;3-6</li>
+              <li>&nbsp; <input type="checkbox" id="servings2" />&nbsp;&nbsp;6-9</li>
             </ul>
           </div>
         </div>
@@ -185,7 +185,7 @@
             <p class="card-text">{{$recipe.Description}}</p>
             <div class="container-fluid bottom-align-text">
               <p class="font-weight-bold">
-                <span style="float:left;">&#128336; &nbsp; {{$recipe.Time}}  hr</span><span class="recipePrice" data-price="{{$recipe.Price}}" data-meals="{{$recipe.Meals}}" style="float:right;"></span>
+                <span style="float:left;">&#128336; &nbsp; {{$recipe.Time}}  hr</span><span class="recipePrice" data-price="{{$recipe.Price}}" data-servings="{{$recipe.Servings}}" style="float:right;"></span>
               </p>
             </div>
           </div>
