@@ -77,11 +77,11 @@
               <p id="price"><strong>Price:</strong> ${{.Price}} for {{.Servings}} servings</p>
               <p id="region"><strong>Region:</strong> {{.Region}}</p>
               <p id="meat"><strong>Meat:</strong> {{.Meat}}</p>
-              <p id="equipment"><strong>Equipment:</strong> TODO: Equipment</p>
+              <p id="equipment"><strong>Equipment:</strong> {{.Equipment}}</p>
             </div>
           </div>
           <div class="card mb-4">
-            <div class="card-body">
+            <div id="ingredientswithbutton" class="card-body">
               <h5 class="mb-3">Ingredients</h5>
               <div id="ingredients" class="container-fluid">
                 {{range $ingredient := .Ingredients}}

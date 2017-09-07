@@ -111,11 +111,18 @@ function getDollars(price, servings) {
 }
 
 $('#contactForm').submit(function() {
-  // TODO: email processing
-  console.log($('#email').val());
-  $.post("/subscribe/" + $('#email').val());
+  if (validateEmail($('#email').val())) {
+    $.post("../../subscribe/" + $('#email').val());
 
-  $('#contactDiv').empty();
-  $('#contactDiv').append("<h6>Thanks for signing up!</h6>");
+    $('#contactDiv').empty();
+    $('#contactDiv').append("<h6>Thanks for signing up!</h6>");
+  } else if ($("#contactDiv p:last-child").length == 0) {
+    $('#contactDiv').append("<p>Please enter valid email address</p>");
+  }
   return false;
 });
+
+function validateEmail(email) {
+  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}

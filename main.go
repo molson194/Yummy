@@ -38,23 +38,27 @@ type Recipe struct {
 	Fat         float32
 	Protein     float32
 	Nutrition   string
+	Equipment   string
 	Ingredients []Ingredient
 	Directions  []string
 }
 
 func subscribe(w http.ResponseWriter, r *http.Request) {
 	email := r.URL.Path[len("/subscribe/"):]
-	// TODO: if email isn't in db yet
-	db.QueryRow("INSERT INTO emails(email) VALUES($1);", email)
+	count, _ := db.Query("SELECT * FROM emails WHERE email = $1", email)
+	defer count.Close()
+	if !count.Next() {
+		db.QueryRow("INSERT INTO emails(email) VALUES($1);", email)
 
-	from := mail.NewEmail("FOOD", "food@food.com")
-	subject := "Thanks for Subscribing"
-	to := mail.NewEmail("New Subscriber", email)
-	plainTextContent := " "
-	htmlContent := "<p>We can't wait to share our favorite recipes with you!</p>"
-	message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-	client := sendgrid.NewSendClient("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")
-	client.Send(message)
+		from := mail.NewEmail("FOOD", "food@food.com")
+		subject := "Thanks for Subscribing"
+		to := mail.NewEmail("New Subscriber", email)
+		plainTextContent := " "
+		htmlContent := "<p>We can't wait to share our favorite recipes with you!</p>"
+		message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
+		client := sendgrid.NewSendClient("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")
+		client.Send(message)
+	}
 	/*
 		rows, _ := db.Query("SELECT * FROM emails")
 
