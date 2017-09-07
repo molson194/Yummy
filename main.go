@@ -18,8 +18,8 @@ var recipes []Recipe
 // Ingredient : Parts of ingredient
 type Ingredient struct {
 	Name     string
-	Price    int
-	Servings float32
+	Price    float32
+	Quantity int
 	ASIN     string
 }
 
@@ -29,7 +29,7 @@ type Recipe struct {
 	Image       string
 	Description string
 	Time        float32
-	Price       int
+	Price       float32
 	Region      string
 	Meat        string
 	Meals       int
@@ -73,81 +73,35 @@ func noFilter(w http.ResponseWriter, r *http.Request) {
 	w.Write(js)
 }
 
-func costFilter(w http.ResponseWriter, r *http.Request) {
-	active := strings.Split(r.URL.Path[len("/costfilter/"):], "+")
+func filter(w http.ResponseWriter, r *http.Request) {
+	active := strings.Split(r.URL.Path[len("/filter/"):], "+")
 	var filteredRecipes []Recipe
+	cost := active[0] == "false" && active[1] == "false" && active[2] == "false" && active[3] == "false"
+	time := active[4] == "false" && active[5] == "false" && active[6] == "false"
+	region := active[7] == "false" && active[8] == "false" && active[9] == "false" && active[10] == "false"
+	meat := active[11] == "false" && active[12] == "false" && active[13] == "false" && active[14] == "false" && active[15] == "false"
+	meals := active[15] == "false" && active[16] == "false" && active[17] == "false" && active[18] == "false"
 	for k := range recipes {
-		cost0 := recipes[k].Price/recipes[k].Meals >= 0 && recipes[k].Price/recipes[k].Meals < 4 && active[0] == "true"
-		cost1 := recipes[k].Price/recipes[k].Meals >= 4 && recipes[k].Price/recipes[k].Meals < 8 && active[1] == "true"
-		cost2 := recipes[k].Price/recipes[k].Meals >= 8 && recipes[k].Price/recipes[k].Meals < 12 && active[2] == "true"
-		cost3 := recipes[k].Price/recipes[k].Meals >= 12 && active[3] == "true"
-		if cost0 || cost1 || cost2 || cost3 {
-			filteredRecipes = append(filteredRecipes, recipes[k])
-		}
-	}
-	js, _ := json.Marshal(filteredRecipes)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(js)
-}
-
-func timeFilter(w http.ResponseWriter, r *http.Request) {
-	active := strings.Split(r.URL.Path[len("/timefilter/"):], "+")
-	var filteredRecipes []Recipe
-	for k := range recipes {
-		time0 := recipes[k].Time >= 0 && recipes[k].Time <= 0.5 && active[0] == "true"
-		time1 := recipes[k].Time >= 0.5 && recipes[k].Time <= 1 && active[1] == "true"
-		time2 := recipes[k].Time >= 1.5 && active[2] == "true"
-		if time0 || time1 || time2 {
-			filteredRecipes = append(filteredRecipes, recipes[k])
-		}
-	}
-	js, _ := json.Marshal(filteredRecipes)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(js)
-}
-
-func regionFilter(w http.ResponseWriter, r *http.Request) {
-	active := strings.Split(r.URL.Path[len("/regionfilter/"):], "+")
-	var filteredRecipes []Recipe
-	for k := range recipes {
-		regionAm := recipes[k].Region == "American" && active[0] == "true"
-		regionIt := recipes[k].Region == "Italian" && active[1] == "true"
-		regionCh := recipes[k].Region == "Chinese" && active[2] == "true"
-		regionMx := recipes[k].Region == "Mexican" && active[3] == "true"
-		if regionAm || regionIt || regionCh || regionMx {
-			filteredRecipes = append(filteredRecipes, recipes[k])
-		}
-	}
-	js, _ := json.Marshal(filteredRecipes)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(js)
-}
-func meatFilter(w http.ResponseWriter, r *http.Request) {
-	active := strings.Split(r.URL.Path[len("/meatfilter/"):], "+")
-	var filteredRecipes []Recipe
-	for k := range recipes {
-		meatCh := recipes[k].Meat == "Chicken" && active[0] == "true"
-		meatBf := recipes[k].Meat == "Beef" && active[1] == "true"
-		meatFi := recipes[k].Meat == "Fish" && active[2] == "true"
-		meatPk := recipes[k].Meat == "Pork" && active[3] == "true"
-		meatVg := recipes[k].Meat == "Vegetarian" && active[4] == "true"
-		if meatCh || meatBf || meatFi || meatPk || meatVg {
-			filteredRecipes = append(filteredRecipes, recipes[k])
-		}
-	}
-	js, _ := json.Marshal(filteredRecipes)
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(js)
-}
-
-func mealsFilter(w http.ResponseWriter, r *http.Request) {
-	active := strings.Split(r.URL.Path[len("/mealsfilter/"):], "+")
-	var filteredRecipes []Recipe
-	for k := range recipes {
-		meals0 := recipes[k].Meals == 1 && active[0] == "true"
-		meals1 := recipes[k].Meals == 2 && active[1] == "true"
-		meals2 := recipes[k].Meals == 3 && active[2] == "true"
-		if meals0 || meals1 || meals2 {
+		cost0 := recipes[k].Price/float32(recipes[k].Meals) >= 0 && recipes[k].Price/float32(recipes[k].Meals) < 4 && active[0] == "true"
+		cost1 := recipes[k].Price/float32(recipes[k].Meals) >= 4 && recipes[k].Price/float32(recipes[k].Meals) < 8 && active[1] == "true"
+		cost2 := recipes[k].Price/float32(recipes[k].Meals) >= 8 && recipes[k].Price/float32(recipes[k].Meals) < 12 && active[2] == "true"
+		cost3 := recipes[k].Price/float32(recipes[k].Meals) >= 12 && active[3] == "true"
+		time0 := recipes[k].Time >= 0 && recipes[k].Time <= 0.5 && active[4] == "true"
+		time1 := recipes[k].Time >= 0.5 && recipes[k].Time <= 1 && active[5] == "true"
+		time2 := recipes[k].Time >= 1.5 && active[6] == "true"
+		regionAm := recipes[k].Region == "American" && active[7] == "true"
+		regionIt := recipes[k].Region == "Italian" && active[8] == "true"
+		regionCh := recipes[k].Region == "Chinese" && active[9] == "true"
+		regionMx := recipes[k].Region == "Mexican" && active[10] == "true"
+		meatCh := recipes[k].Meat == "Chicken" && active[11] == "true"
+		meatBf := recipes[k].Meat == "Beef" && active[12] == "true"
+		meatFi := recipes[k].Meat == "Fish" && active[13] == "true"
+		meatPk := recipes[k].Meat == "Pork" && active[14] == "true"
+		meatVg := recipes[k].Meat == "Vegetarian" && active[15] == "true"
+		meals0 := recipes[k].Meals == 1 && active[16] == "true"
+		meals1 := recipes[k].Meals == 2 && active[17] == "true"
+		meals2 := recipes[k].Meals == 3 && active[18] == "true"
+		if (cost || cost0 || cost1 || cost2 || cost3) && (time || time0 || time1 || time2) && (region || regionAm || regionIt || regionCh || regionMx) && (meat || meatCh || meatBf || meatFi || meatPk || meatVg) && (meals || meals0 || meals1 || meals2) {
 			filteredRecipes = append(filteredRecipes, recipes[k])
 		}
 	}
@@ -175,9 +129,9 @@ func main() {
 	file, _ := ioutil.ReadFile("static/recipes.json")
 	json.Unmarshal(file, &recipes)
 	for k := range recipes {
-		price := 0
+		price := float32(0)
 		for i := range recipes[k].Ingredients {
-			price += recipes[k].Ingredients[i].Price
+			price += recipes[k].Ingredients[i].Price * float32(recipes[k].Ingredients[i].Quantity)
 		}
 		recipes[k].Price = price
 	}
@@ -190,11 +144,7 @@ func main() {
 	http.HandleFunc("/recipe/", recipe)
 	http.HandleFunc("/subscribe/", subscribe)
 	http.HandleFunc("/nofilter/", noFilter)
-	http.HandleFunc("/costfilter/", costFilter)
-	http.HandleFunc("/timefilter/", timeFilter)
-	http.HandleFunc("/regionfilter/", regionFilter)
-	http.HandleFunc("/meatfilter/", meatFilter)
-	http.HandleFunc("/mealsfilter/", mealsFilter)
+	http.HandleFunc("/filter/", filter)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	fmt.Println("Starting server...")
 	http.ListenAndServe(getPort(), nil)
@@ -208,9 +158,8 @@ func getPort() string {
 	return ":" + port
 }
 
-// TODO: 1. Get request price of ingredients from amazon
-// TODO: 2. Get rid of num served. Replace number of meals (switch to finish perishables model). Quantity (not servings) for ingredients. Accordian
-// TODO: 3. Other tabs
-// TEST WITH FRESH USER
+// TODO: 1. Accordian
+// TODO: 2. Other tabs
+// TODO: 3. TEST WITH FRESH USER
 
 // TODO Long Term: Search

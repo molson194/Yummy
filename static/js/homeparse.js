@@ -4,66 +4,50 @@ $(document).ready(function() {
   });
 });
 
-$("#cost0,#cost1,#cost2,#cost3").change(function() {
+$("#cost0,#cost1,#cost2,#cost3,#time0,#time1,#time2,#regionUs,#regionIt,#regionCh,#regionMx,#meatCh,#meatBf,#meatFi,#meatPk,#meatVg,#meals0,#meals1,#meals2").change(function() {
   $("#recipelist").empty();
-  var numChecks = $("#cost0").is(":checked") + $("#cost1").is(":checked") + $("#cost2").is(":checked") + $("#cost3").is(":checked");
-  if (numChecks == 0) {
+
+  var costChecks = $("#cost0").is(":checked") + $("#cost1").is(":checked") + $("#cost2").is(":checked") + $("#cost3").is(":checked");
+  if (costChecks == 0) {
     $("#priceButton").html("Price");
-    populateRecipes("/nofilter");
   } else {
-    $("#priceButton").html("Price(" + numChecks + ")");
-    populateRecipes("/costfilter/" + $("#cost0").is(":checked") + "+" + $("#cost1").is(":checked") + "+" + $("#cost2").is(":checked") + "+" + $("#cost3").is(":checked"));
+    $("#priceButton").html("Price(" + costChecks + ")");
   }
-});
 
-$("#time0,#time1,#time2").change(function() {
-  $("#recipelist").empty();
-  var numChecks = $("#time0").is(":checked") + $("#time1").is(":checked") + $("#time2").is(":checked");
-  if (numChecks == 0) {
+  var timeChecks = $("#time0").is(":checked") + $("#time1").is(":checked") + $("#time2").is(":checked");
+  if (timeChecks == 0) {
     $("#timeButton").html("Time");
-    populateRecipes("/nofilter");
   } else {
-    $("#timeButton").html("Time(" + numChecks + ")");
-    populateRecipes("/timefilter/" + $("#time0").is(":checked") + "+" + $("#time1").is(":checked") + "+" + $("#time2").is(":checked"));
+    $("#timeButton").html("Time(" + timeChecks + ")");
   }
-});
 
-$("#regionUs,#regionIt,#regionCh,#regionMx").change(function() {
-  $("#recipelist").empty();
-  var numChecks = $("#regionUs").is(":checked") + $("#regionIt").is(":checked") + $("#regionCh").is(":checked") + $("#regionMx").is(":checked");
-  if (numChecks == 0) {
+  var regionChecks = $("#regionUs").is(":checked") + $("#regionIt").is(":checked") + $("#regionCh").is(":checked") + $("#regionMx").is(":checked");
+  if (regionChecks == 0) {
     $("#regionButton").html("Region");
-    populateRecipes("/nofilter");
   } else {
-    $("#regionButton").html("Region(" + numChecks + ")");
-    populateRecipes("/regionfilter/" + $("#regionUs").is(":checked") + "+" + $("#regionIt").is(":checked") + "+" + $("#regionCh").is(":checked") + "+" + $("#regionMx").is(":checked"));
-
+    $("#regionButton").html("Region(" + regionChecks + ")");
   }
-});
 
-$("#meatCh,#meatBf,#meatFi,#meatPk,#meatVg").change(function() {
-  $("#recipelist").empty();
-  var numChecks = $("#meatCh").is(":checked") + $("#meatBf").is(":checked") + $("#meatFi").is(":checked") + $("#meatPk").is(":checked") + $("#meatVg").is(":checked");
-  if (numChecks == 0) {
+  var meatChecks = $("#meatCh").is(":checked") + $("#meatBf").is(":checked") + $("#meatFi").is(":checked") + $("#meatPk").is(":checked") + $("#meatVg").is(":checked");
+  if (meatChecks == 0) {
     $("#meatButton").html("Meat");
-    populateRecipes("/nofilter");
   } else {
-    $("#meatButton").html("Meat(" + numChecks + ")");
-    populateRecipes("/meatfilter/" + $("#meatCh").is(":checked") + "+" + $("#meatBf").is(":checked") + "+" + $("#meatFi").is(":checked") + "+" + $("#meatPk").is(":checked") + "+" + $("#meatVg").is(":checked"));
+    $("#meatButton").html("Meat(" + meatChecks + ")");
   }
 
-});
-
-$("#meals0,#meals1,#meals2").change(function() {
-  $("#recipelist").empty();
-  var numChecks = $("#meals0").is(":checked") + $("#meals1").is(":checked") + $("#meals2").is(":checked");
-  if (numChecks == 0) {
+  var mealsChecks = $("#meals0").is(":checked") + $("#meals1").is(":checked") + $("#meals2").is(":checked");
+  if (mealsChecks == 0) {
     $("#mealsButton").html("Meals");
-    populateRecipes("/nofilter");
   } else {
-    $("#mealsButton").html("Meals(" + numChecks + ")");
-    populateRecipes("/mealsfilter/" + $("#meals0").is(":checked") + "+" + $("#meals1").is(":checked") + "+" + $("#meals2").is(":checked"));
+    $("#mealsButton").html("Meals(" + mealsChecks + ")");
   }
+
+  var costUrl = $("#cost0").is(":checked") + "+" + $("#cost1").is(":checked") + "+" + $("#cost2").is(":checked") + "+" + $("#cost3").is(":checked");
+  var timeUrl = $("#time0").is(":checked") + "+" + $("#time1").is(":checked") + "+" + $("#time2").is(":checked");
+  var regionUrl = $("#regionUs").is(":checked") + "+" + $("#regionIt").is(":checked") + "+" + $("#regionCh").is(":checked") + "+" + $("#regionMx").is(":checked");
+  var meatUrl = $("#meatCh").is(":checked") + "+" + $("#meatBf").is(":checked") + "+" + $("#meatFi").is(":checked") + "+" + $("#meatPk").is(":checked") + "+" + $("#meatVg").is(":checked");
+  var mealsUrl = $("#meals0").is(":checked") + "+" + $("#meals1").is(":checked") + "+" + $("#meals2").is(":checked");
+  populateRecipes("/filter/" + costUrl + "+" + timeUrl + "+" + regionUrl + "+" + meatUrl + "+" + mealsUrl);
 });
 
 $("#resetButton").click(function() {

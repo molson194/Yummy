@@ -14,7 +14,7 @@ function buyChecked() {
   var counter = 1;
   for (i = 0; i < checkboxes.length; i++) {
     if (checkboxes[i].checked) {
-      cartAdd += "&ASIN." + counter + "=" + checkboxes[i].dataset.asin + "&Quantity." + counter + "=" + Math.ceil(1 / checkboxes[i].dataset.servings);
+      cartAdd += "&ASIN." + counter + "=" + checkboxes[i].dataset.asin + "&Quantity." + counter + "=" + checkboxes[i].dataset.quantity;
       counter++;
     }
   }
