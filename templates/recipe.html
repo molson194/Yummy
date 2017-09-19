@@ -83,16 +83,13 @@
           <div class="card mb-4">
             <div id="ingredientswithbutton" class="card-body">
               <h5 class="mb-3">Ingredients</h5>
-              <div id="ingredients" class="container-fluid">
+              <p>Click on item links and add correct quantity to cart on Amazon before proceeding to cart.</p>
+              <ul class="mt-3" id="ingredients">
                 {{range $ingredient := .Ingredients}}
-                <div class="checkbox">
-                  <label>
-                    <input data-asin="{{$ingredient.ASIN}}" data-quantity="{{$ingredient.Quantity}}" type="checkbox">&nbsp;&nbsp;{{$ingredient.Name}} ({{$ingredient.Quantity}} for ${{$ingredient.Price}} each)
-                  </label>
-                </div>
+                <li><a class="text-primary" href="https://www.amazon.com/gp/product/{{$ingredient.ASIN}}/ref=afx_dp_ingress&fpw=fresh&tag=molson194-20" target="_blank"><b>{{$ingredient.Name}}</b> ({{$ingredient.Quantity}} for ${{$ingredient.Price}} each)</a></li>
                 {{end}}
-              </div>
-              <button onclick="buyChecked()" class="btn btn-block btn-warning mt-3">Buy on Amazon</button>
+              </ul>
+              <a href="https://www.amazon.com/gp/cart/view.html/ref=nav_cart" class="btn btn-block btn-warning mt-3"><b>My Amazon Cart</b></a>
             </div>
           </div>
         </div>

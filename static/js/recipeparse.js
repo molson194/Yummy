@@ -14,6 +14,7 @@ $('#contactForm').submit(function() {
   return false;
 });
 
+/*
 function buyChecked() {
   var checkboxes = $("#ingredients").find("input[type=checkbox]");
   var cartAdd = "";
@@ -31,6 +32,7 @@ function buyChecked() {
     $('#ingredientswithbutton').append("<p>No items selected</p>");
   }
 }
+*/
 
 function validateEmail(email) {
   var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
