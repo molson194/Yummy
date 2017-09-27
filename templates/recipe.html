@@ -74,7 +74,7 @@
           <div class="card mb-4">
             <div class="card-body">
               <p id="time"><strong>Time:</strong> {{.Time}} hr</p>
-              <p id="price"><strong>Price:</strong> ${{.Price}} for {{.Servings}} servings</p>
+              <p id="price"><strong>Price:</strong> ${{printf "%.2f" .Price}} for {{.Servings}} servings</p>
               <p id="region"><strong>Region:</strong> {{.Region}}</p>
               <p id="meat"><strong>Meat:</strong> {{.Meat}}</p>
               <p id="equipment"><strong>Equipment:</strong> {{.Equipment}}</p>
