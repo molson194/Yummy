@@ -14,8 +14,7 @@
 	"equipment": "Stove",
 	"ingredients": [{"name": "Chicken", "price" : 11.02, "quantity" : 1, "asin" : "B00J3VHERY"}, {"name": "Rice", "price" : 2.99, "quantity" : 1, "asin" : "B074H6R3Q4"}, {"name": "Teriaki Sauce", "price" : 2.99, "quantity" : 1, "asin" : "B074H6VR3V"}, {"name": "Garlic", "price" : 0.50, "quantity" : 1, "asin" : "B000NSFQJE"}, {"name": "Eggs", "price" : 3.69, "quantity" : 1, "asin" : "B00G8UA97K"},{"name": "Broccoli", "price" : 2.49, "quantity" : 1, "asin" : "B00E3J8XHQ"},{"name": "Red Pepper", "price" : 0.88, "quantity" : 1, "asin" : "B000P6L42C"},{"name": "Green Pepper", "price" : 0.79, "quantity" : 1, "asin" : "B001PLESVU"},{"name": "Onion", "price" : 0.74, "quantity" : 1, "asin" : "B000P6J1NQ"},{"name": "Carrots", "price" : 0.79, "quantity" : 1, "asin" : "B00E3JENDO"}],
 	"directions": ["Follow instructions on rice package and start cooking the rice", "While the rice is cooking, mince garlic, cut chicken (small pieces), and chop veggies", "Turn the stove onto high heat with large pan and layer of olive oil. When warm, add garlic and wait for garlic to sizzle", "Add all garlic, large veggies, and chicken. Stir continuously", "When chicken finishes cooking, add a little more oil, 4 eggs, and rest of the veggies. Stir continuously", "Add rice and teriaki sauce to pan. Mix all ingredients."]
-}
-,{
+},{
 	"title": "Sausage Pasta",
 	"image": "https://www.plaidandpaleo.com/wp-content/uploads/2016/02/spicy-sausage-pasta_plaidandpaleo.jpg",
 	"description": "Easy pasta recipe with Italian sausage, tomatoes and pasta all cooked together in one skillet, then topped with Parmesan cheese",
@@ -31,4 +30,20 @@
 	"equipment": "Stove",
 	"ingredients": [{"name": "Sausage", "price" : 3.99, "quantity" : 1, "asin" : "B00ZIG07DQ"},{"name": "Tomatoes", "price" : 2.99, "quantity" : 1, "asin" : "B000PKMAOY"},{"name": "Red Pepper", "price" : 0.88, "quantity" : 1, "asin" : "B000P6L42C"},{"name": "Green Pepper", "price" : 0.79, "quantity" : 1, "asin" : "B001PLESVU"},{"name": "Vodka Sauce", "price" : 2, "quantity" : 1, "asin" : "B00XXGW39Y"},{"name": "Cilantro", "price" : 0.33, "quantity" : 1, "asin" : "B003IMCNH0"},{"name": "Garlic", "price" : 0.5, "quantity" : 1, "asin" : "B000NSFQJE"},{"name": "Oregano", "price" : 1.2, "quantity" : 1, "asin" : "B01B95J550"}, {"name": "Parmesan", "price" : 3.29, "quantity" : 1, "asin" : "B074H732BZ"},{"name": "Penne Pasta", "price" : 1.39, "quantity" : 1, "asin" : "B000RUP0JE"}],
 	"directions": ["Heat large skillet over medium-high heat. Add sausage; cook 5 minutes, breaking apart with spoon to crumble. Drain; return to skillet.", "Add water, undrained tomatoes, peppers, tomato sauce and pasta to skillet; stir to combine. Bring to a boil. Cover; reduce heat and cook 15 minutes or until pasta is tender.", "Sprinkle with Parmesan cheese."]
+},{
+	"title": "Salmon, Potatoes, and Veggies",
+	"image": "https://solorecetas.com/wp-content/uploads/2014/04/salmon-a-la-plancha-con-esparragos.jpg",
+	"description": "The flavors of the salmon, potatoes, brussel sprouts, and asparagus come together beautifully",
+	"time": 1,
+	"region": "N/A",
+	"meat": "Fish",
+	"servings": 3,
+	"calories": 500,
+	"carbs": 50,
+	"fat": 5,
+	"protein": 30,
+	"nutrition": "Sugar : 0 g, Sat Fat : 0 g",
+	"equipment": "Oven",
+	"ingredients": [{"name": "Potatoes", "price" : 4.89, "quantity" : 1, "asin" : "B00E3JGJYU"},{"name": "Asparagus", "price" : 3.99, "quantity" : 1, "asin" : "B00E3J9QSG"},{"name": "Salmon", "price" : 9.99, "quantity" : 1, "asin" : "B0727W9HLC"},{"name": "Lemon", "price" : 0.59, "quantity" : 1, "asin" : "B001L1KRNC"},{"name": "Brussel Sprouts", "price" : 2.6, "quantity" : 1, "asin" : "B003IQ3PEQ"}],
+	"directions": ["Preheat oven to 425 degrees F", "Wash, dry and halve potatoes. Spread out evenly in baking sheet. Coat generously with olive oil, toss in half the truffle salt, and mix. Once well coated, arrange the potatoes cut-side down", "Roast potatoes and brussel sprouts until cooked and beginning to crisp, about 20-25 minutes","Remove baking sheet from oven and carefully move potatoes onto one side of the baking sheet","Next to the potatoes, place asparagus and salmon, skin-side down. Drizzle olive oil on to both and add more to the potatoes if needed. Sprinkle salmon and asparagus with the remaining truffle salt and a squeeze of lemon juice. Return to the oven to bake for 10 minutes, until salmon flakes easily with a fork and asparagus is bright green","Once everything is cooked, remove pan from oven and top with the remaining juice of half a lemon. Cut up the other half of the lemon into wedges and serve as a garnish"]
 }]
