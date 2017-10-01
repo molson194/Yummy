@@ -96,6 +96,9 @@ function populateRecipes(url) {
   var text5 = " hr</span><span style=\"float:right;\">";
   var text6 = "</span></p></div></div></div></div>";
   $.get(url, function(recipes) {
+    if (recipes == null) {
+      return;
+    }
     recipes.forEach(function(element) {
       $("#recipelist").append(text1a + "recipe/" + element.Title + text1b + element.Image + text2a + "recipe/" + element.Title + text2b + element.Title + text3 + element.Description + text4 + element.Time + text5 + getDollars(element.Price, element.Servings) + text6);
     });
