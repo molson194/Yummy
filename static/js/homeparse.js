@@ -107,7 +107,7 @@ function populateRecipes(url) {
 
 function getDollars(price, servings) {
   var dollars = "$";
-  var ppm = Math.min(Math.floor(price / servings / 4.0), 3);
+  var ppm = Math.min(Math.floor(price / servings / 3.0), 3);
   for (i = 0; i < ppm; i++) {
     dollars += "$";
   }
