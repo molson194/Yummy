@@ -56,7 +56,7 @@ func subscribe(w http.ResponseWriter, r *http.Request) {
 		plainTextContent := " "
 		htmlContent := "<p>We can't wait to share our favorite recipes with you!</p>"
 		message := mail.NewSingleEmail(from, subject, to, plainTextContent, htmlContent)
-		client := sendgrid.NewSendClient("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")
+		client := sendgrid.NewSendClient(os.Getenv("SENDGRID_KEY"))
 		client.Send(message)
 	}
 	/*
@@ -140,7 +140,7 @@ func main() {
 		recipes[k].Price = price
 	}
 
-	db, _ = sql.Open("postgres", "postgres://nkjplgcudchzta:7d21aff54ce6c3e66f5bbd815dd29e74d442e0dd344311dde85cf10462488bae@ec2-23-21-184-113.compute-1.amazonaws.com:5432/db1605r628ae6n")
+	db, _ = sql.Open("postgres", os.Getenv("POSTGRES_KEY"))
 	defer db.Close()
 	db.Exec("CREATE TABLE IF NOT EXISTS emails (email VARCHAR (50) NOT NULL UNIQUE)")
 
